@@ -3,7 +3,6 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import load_model
 import json
-import pyautogui
 import re
 from bs4 import BeautifulSoup
 import urllib.request as req
@@ -11,7 +10,6 @@ import streamlit as st
 import urllib.parse as par
 
 st.title('BREAKOUT SON')
-# user_input = pyautogui.prompt()
 user_input = st.text_input('본문 또는 URL 입력')
 
 if 'blog.naver.com' in user_input:
@@ -71,7 +69,6 @@ str_without_line = str.replace('\n','').strip() #줄바꿈만 정리한 것
 st.write ('### 전체적 감성 분석결과')
 sentiment_predict(str_without_line)
 
-pyautogui.alert ('세부사항 확인')
 
 # # 감성분석 부분단위로 분석하는 과정
 for i in str_phr:
