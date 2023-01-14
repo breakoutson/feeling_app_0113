@@ -81,7 +81,7 @@ for i in str_phr:
     encoded = tokenizer.texts_to_sequences([k])  # 정수 인코딩
     pad_new = pad_sequences(encoded, maxlen=max_len)  # 패딩
     score = float(loaded_model.predict(pad_new))  # 예측
-    st.wrtie (i)
+    st.write (i)
     st.write('긍정감성분석 {:.1f}%'.format(score * 100))
     if score <= 0.20:
-        st.write ('****부정 감성 검토 바랍니다. ****')
+        st.write ('**** 감성 검토가 필요한 문장 ****')
