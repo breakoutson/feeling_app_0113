@@ -49,9 +49,8 @@ def sentiment_predict(new_sentence):
     pad_new = pad_sequences(encoded, maxlen = max_len) # 패딩
     score = float(loaded_model.predict(pad_new)) # 예측
     st.write ('#### 긍정감성분석 {:.1f}%'.format(score*100))
-    st.success("Success")
     if score <= 0.10:
-        st.write ('부정 감성 검토 바랍니다. **************************************************')
+        st.write ('### 부정 감성 검토 바랍니다.')
 
 # 블로그 에디터 창에서 안보이지만 따라오는 단어들
 remove_list = ['대표사진 삭제', '사진 설명을 입력하세요.', '출처 입력', '사진 삭제','이미지 썸네일 삭제', '동영상 정보 상세 보기','동영상 설명을 입력하세요.']
@@ -69,32 +68,31 @@ str_re = re.sub('\n| ', '', str)
 str_without_line = str.replace('\n','').strip() #줄바꿈만 정리한 것
 
 # 감성분석 전체분석
-if st.button("결과보기"):
+if st.button("분석 시작"):
     st.write("Data Loading..")
     with st.spinner('Wait for it...'):
         time.sleep(1)
     st.success('Done!')
-    st.write ('### 전체적 감성 분석결과')
     sentiment_predict(str_without_line)
 
-if st.button("세부사항 확인"):
-    st.write("Data Loading..")
-    with st.spinner('Wait for it...'):
-        time.sleep(2)
-    st.success('Done!')
+    if st.button("세부확인"):
+        st.write("Data Loading..")
+        with st.spinner('Wait for it...'):
+            time.sleep(2)
+        st.success('Done!')
 
-    # # 감성분석 부분단위로 분석하는 과정
-    for i in str_phr:
-        if i == ' ':
-            continue
-        max_len = 30
-        stopwords = ['의', '가', '이', '은', '들', '는', '좀', '잘', '걍', '과', '도', '를', '으로', '자', '에', '와', '한', '하다']
-        k = okt.morphs(i, stem=True)  # 토큰화
-        k = [word for word in k if not word in stopwords]  # 불용어 제거
-        encoded = tokenizer.texts_to_sequences([k])  # 정수 인코딩
-        pad_new = pad_sequences(encoded, maxlen=max_len)  # 패딩
-        score = float(loaded_model.predict(pad_new))  # 예측
-        if score <= 0.20:
-            st.write (i)
-            st.write('긍정감성분석 {:.1f}%'.format(score * 100))
-            st.write ('**** 감성 검토가 필요한 문장 ****')
+        # # 감성분석 부분단위로 분석하는 과정
+        for i in str_phr:
+            if i == ' ':
+                continue
+            max_len = 30
+            stopwords = ['의', '가', '이', '은', '들', '는', '좀', '잘', '걍', '과', '도', '를', '으로', '자', '에', '와', '한', '하다']
+            k = okt.morphs(i, stem=True)  # 토큰화
+            k = [word for word in k if not word in stopwords]  # 불용어 제거
+            encoded = tokenizer.texts_to_sequences([k])  # 정수 인코딩
+            pad_new = pad_sequences(encoded, maxlen=max_len)  # 패딩
+            score = float(loaded_model.predict(pad_new))  # 예측
+            if score <= 0.20:
+                st.write('#### 감성 검토가 필요한 문장')
+                st.info(i)
+                st.write('긍정감성분석 {:.1f}%'.format(score * 100))
