@@ -79,9 +79,8 @@ if st.button("분석 시작"):
         st.write("Data Loading..")
         with st.spinner('Wait for it...'):
             time.sleep(2)
-        st.success('Done!')
 
-        # # 감성분석 부분단위로 분석하는 과정
+        ## 감성분석 부분단위로 분석하는 과정
         for i in str_phr:
             if i == ' ':
                 continue
