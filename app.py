@@ -7,6 +7,7 @@ import re
 from bs4 import BeautifulSoup
 import urllib.request as req
 import streamlit as st
+import time
 import urllib.parse as par
 
 st.title('BREAKOUT SON')
@@ -68,14 +69,18 @@ str_re = re.sub('\n| ', '', str)
 str_without_line = str.replace('\n','').strip() #줄바꿈만 정리한 것
 
 # 감성분석 전체분석
-st.write ('### 전체적 감성 분석결과')
-sentiment_predict(str_without_line)
+if st.button("결과보기"):
+    st.write("Data Loading..")
+    with st.spinner('Wait for it...'):
+        time.sleep(1)
+    st.success('Done!')
+    st.write ('### 전체적 감성 분석결과')
+    sentiment_predict(str_without_line)
 
 if st.button("세부사항 확인"):
     st.write("Data Loading..")
-    import time
     with st.spinner('Wait for it...'):
-        time.sleep(5)
+        time.sleep(2)
     st.success('Done!')
 
     # # 감성분석 부분단위로 분석하는 과정
