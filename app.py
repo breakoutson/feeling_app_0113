@@ -48,6 +48,7 @@ def sentiment_predict(new_sentence):
     pad_new = pad_sequences(encoded, maxlen = max_len) # 패딩
     score = float(loaded_model.predict(pad_new)) # 예측
     st.write ('#### 긍정감성분석 {:.1f}%'.format(score*100))
+    st.success("Success")
     if score <= 0.10:
         st.write ('부정 감성 검토 바랍니다. **************************************************')
 
@@ -70,9 +71,12 @@ str_without_line = str.replace('\n','').strip() #줄바꿈만 정리한 것
 st.write ('### 전체적 감성 분석결과')
 sentiment_predict(str_without_line)
 
-detail = st.text_input ('세부사항을 확인하려면 엔터')
-
-if detail == '':
+if st.button("세부사항 확인"):
+    st.write("Data Loading..")
+    import time
+    with st.spinner('Wait for it...'):
+        time.sleep(5)
+    st.success('Done!')
 
     # # 감성분석 부분단위로 분석하는 과정
     for i in str_phr:
@@ -85,7 +89,7 @@ if detail == '':
         encoded = tokenizer.texts_to_sequences([k])  # 정수 인코딩
         pad_new = pad_sequences(encoded, maxlen=max_len)  # 패딩
         score = float(loaded_model.predict(pad_new))  # 예측
-        st.write (i)
-        st.write('긍정감성분석 {:.1f}%'.format(score * 100))
         if score <= 0.20:
+            st.write (i)
+            st.write('긍정감성분석 {:.1f}%'.format(score * 100))
             st.write ('**** 감성 검토가 필요한 문장 ****')
