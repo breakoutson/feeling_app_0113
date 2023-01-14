@@ -3,6 +3,7 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.models import load_model
 import json
+import pyautogui
 import re
 from bs4 import BeautifulSoup
 import urllib.request as req
@@ -10,6 +11,7 @@ import streamlit as st
 import urllib.parse as par
 
 st.title('BREAKOUT SON')
+# user_input = pyautogui.prompt()
 user_input = st.text_input('본문 또는 URL 입력')
 
 if 'blog.naver.com' in user_input:
@@ -46,7 +48,7 @@ def sentiment_predict(new_sentence):
     encoded = tokenizer.texts_to_sequences([new_sentence]) # 정수 인코딩
     pad_new = pad_sequences(encoded, maxlen = max_len) # 패딩
     score = float(loaded_model.predict(pad_new)) # 예측
-    st.write ('긍정감성분석 {:.1f}%'.format(score*100))
+    st.write ('#### 긍정감성분석 {:.1f}%'.format(score*100))
     if score <= 0.10:
         st.write ('부정 감성 검토 바랍니다. **************************************************')
 
@@ -69,19 +71,22 @@ str_without_line = str.replace('\n','').strip() #줄바꿈만 정리한 것
 st.write ('### 전체적 감성 분석결과')
 sentiment_predict(str_without_line)
 
+detail = st.text_input ('세부사항을 확인하려면 엔터')
 
-# # 감성분석 부분단위로 분석하는 과정
-for i in str_phr:
-    if i == ' ':
-        continue
-    max_len = 30
-    stopwords = ['의', '가', '이', '은', '들', '는', '좀', '잘', '걍', '과', '도', '를', '으로', '자', '에', '와', '한', '하다']
-    k = okt.morphs(i, stem=True)  # 토큰화
-    k = [word for word in k if not word in stopwords]  # 불용어 제거
-    encoded = tokenizer.texts_to_sequences([k])  # 정수 인코딩
-    pad_new = pad_sequences(encoded, maxlen=max_len)  # 패딩
-    score = float(loaded_model.predict(pad_new))  # 예측
-    st.write (i)
-    st.write('긍정감성분석 {:.1f}%'.format(score * 100))
-    if score <= 0.20:
-        st.write ('**** 감성 검토가 필요한 문장 ****')
+if detail == '':
+
+    # # 감성분석 부분단위로 분석하는 과정
+    for i in str_phr:
+        if i == ' ':
+            continue
+        max_len = 30
+        stopwords = ['의', '가', '이', '은', '들', '는', '좀', '잘', '걍', '과', '도', '를', '으로', '자', '에', '와', '한', '하다']
+        k = okt.morphs(i, stem=True)  # 토큰화
+        k = [word for word in k if not word in stopwords]  # 불용어 제거
+        encoded = tokenizer.texts_to_sequences([k])  # 정수 인코딩
+        pad_new = pad_sequences(encoded, maxlen=max_len)  # 패딩
+        score = float(loaded_model.predict(pad_new))  # 예측
+        st.write (i)
+        st.write('긍정감성분석 {:.1f}%'.format(score * 100))
+        if score <= 0.20:
+            st.write ('**** 감성 검토가 필요한 문장 ****')
