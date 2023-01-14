@@ -10,8 +10,7 @@ import streamlit as st
 import time
 import urllib.parse as par
 
-st.title('BREAKOUT SON')
-# user_input = pyautogui.prompt()
+st.title('BREAKOUT SON 감성분석기')
 user_input = st.text_input('본문 또는 URL 입력')
 
 if 'blog.naver.com' in user_input:
@@ -69,7 +68,6 @@ str_without_line = str.replace('\n','').strip() #줄바꿈만 정리한 것
 
 # 감성분석 전체분석
 if st.button("분석 시작"):
-    st.write("Data Loading..")
     with st.spinner('Wait for it...'):
         time.sleep(1)
     sentiment_predict(str_without_line)
