@@ -11,6 +11,7 @@ import time
 import urllib.parse as par
 
 st.title('BREAKOUT SON 감성분석기')
+# user_input = pyautogui.prompt()
 user_input = st.text_input('본문 또는 URL 입력')
 
 if 'blog.naver.com' in user_input:
@@ -47,7 +48,7 @@ def sentiment_predict(new_sentence):
     encoded = tokenizer.texts_to_sequences([new_sentence]) # 정수 인코딩
     pad_new = pad_sequences(encoded, maxlen = max_len) # 패딩
     score = float(loaded_model.predict(pad_new)) # 예측
-    st.write ('#### 긍정감성분석 {:.1f}%'.format(score*100))
+    st.write ('#### 긍정감성수준 {:.1f}%'.format(score*100))
     if score <= 0.10:
         st.write ('### 부정 감성 검토 바랍니다.')
 
@@ -72,12 +73,8 @@ if st.button("분석 시작"):
         time.sleep(1)
     sentiment_predict(str_without_line)
 
-    if st.button("세부확인"):
-        st.write("Data Loading..")
-        with st.spinner('Wait for it...'):
-            time.sleep(2)
 
-    ## 감성분석 부분단위로 분석하는 과정
+        ## 감성분석 부분단위로 분석하는 과정
     for i in str_phr:
         if i == ' ':
             continue
@@ -91,4 +88,4 @@ if st.button("분석 시작"):
         if score <= 0.20:
             st.write('#### 감성 검토가 필요한 문장')
             st.info(i)
-            st.write('긍정감성분석 {:.1f}%'.format(score * 100))
+            st.write('긍정감성수준 {:.1f}%'.format(score * 100))
