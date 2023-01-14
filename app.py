@@ -86,6 +86,7 @@ if st.button("분석 시작"):
         pad_new = pad_sequences(encoded, maxlen=max_len)  # 패딩
         score = float(loaded_model.predict(pad_new))  # 예측
         if score <= 0.20:
+            st.write('\n')
             st.write('#### 감성 검토가 필요한 문장')
             st.info(i)
             st.write('긍정감성수준 {:.1f}%'.format(score * 100))
