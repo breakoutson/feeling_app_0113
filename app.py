@@ -72,7 +72,6 @@ if st.button("분석 시작"):
     st.write("Data Loading..")
     with st.spinner('Wait for it...'):
         time.sleep(1)
-    st.success('Done!')
     sentiment_predict(str_without_line)
 
     if st.button("세부확인"):
