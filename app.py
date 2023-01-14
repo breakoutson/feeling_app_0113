@@ -80,18 +80,18 @@ if st.button("분석 시작"):
         with st.spinner('Wait for it...'):
             time.sleep(2)
 
-        ## 감성분석 부분단위로 분석하는 과정
-        for i in str_phr:
-            if i == ' ':
-                continue
-            max_len = 30
-            stopwords = ['의', '가', '이', '은', '들', '는', '좀', '잘', '걍', '과', '도', '를', '으로', '자', '에', '와', '한', '하다']
-            k = okt.morphs(i, stem=True)  # 토큰화
-            k = [word for word in k if not word in stopwords]  # 불용어 제거
-            encoded = tokenizer.texts_to_sequences([k])  # 정수 인코딩
-            pad_new = pad_sequences(encoded, maxlen=max_len)  # 패딩
-            score = float(loaded_model.predict(pad_new))  # 예측
-            if score <= 0.20:
-                st.write('#### 감성 검토가 필요한 문장')
-                st.info(i)
-                st.write('긍정감성분석 {:.1f}%'.format(score * 100))
+    ## 감성분석 부분단위로 분석하는 과정
+    for i in str_phr:
+        if i == ' ':
+            continue
+        max_len = 30
+        stopwords = ['의', '가', '이', '은', '들', '는', '좀', '잘', '걍', '과', '도', '를', '으로', '자', '에', '와', '한', '하다']
+        k = okt.morphs(i, stem=True)  # 토큰화
+        k = [word for word in k if not word in stopwords]  # 불용어 제거
+        encoded = tokenizer.texts_to_sequences([k])  # 정수 인코딩
+        pad_new = pad_sequences(encoded, maxlen=max_len)  # 패딩
+        score = float(loaded_model.predict(pad_new))  # 예측
+        if score <= 0.20:
+            st.write('#### 감성 검토가 필요한 문장')
+            st.info(i)
+            st.write('긍정감성분석 {:.1f}%'.format(score * 100))
