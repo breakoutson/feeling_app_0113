@@ -40,7 +40,7 @@ loaded_model = load_model('best_model.h5')
 
 # 감성 분류 함수
 def sentiment_predict(new_sentence):
-    st.progress(progress_variable_1_to_100)
+    st.progress(100)
     st.balloons()
     st.write(new_sentence)
     max_len = 30
