@@ -48,7 +48,7 @@ def sentiment_predict(new_sentence):
     encoded = tokenizer.texts_to_sequences([new_sentence]) # 정수 인코딩
     pad_new = pad_sequences(encoded, maxlen = max_len) # 패딩
     score = float(loaded_model.predict(pad_new)) # 예측
-    st.write ('# 긍정감성수준: {:.1f}%'.format(score*100))
+    st.write ('## 긍정감성수준: {:.1f}%'.format(score*100))
     if score <= 0.10:
         st.write ('### 부정 감성 검토 바랍니다.')
 
