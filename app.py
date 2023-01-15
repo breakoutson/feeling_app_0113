@@ -89,4 +89,4 @@ if st.button("분석 시작"):
             st.write('\n')
             st.write('#### 감성 검토가 필요한 문장')
             st.info(i)
-            st.write('긍정감성수준: {:.1f}%'.format(score * 100))
+#             st.write('긍정감성수준: {:.1f}%'.format(score * 100))
