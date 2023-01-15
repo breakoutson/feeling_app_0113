@@ -53,7 +53,7 @@ def sentiment_predict(new_sentence):
     st.write ('## 긍정감성수준: {:.1f}%'.format(score*100))
     
     if score >= 0.60:
-        st.balloons(100)
+        st.balloons()
     if score <= 0.40:
         st.snow()
 
