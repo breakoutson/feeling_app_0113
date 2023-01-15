@@ -40,6 +40,7 @@ loaded_model = load_model('best_model.h5')
 
 # 감성 분류 함수
 def sentiment_predict(new_sentence):
+    st.snow()
     st.write(new_sentence)
     max_len = 30
     stopwords = ['의','가','이','은','들','는','좀','잘','걍','과','도','를','으로','자','에','와','한','하다']
