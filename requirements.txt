@@ -1,6 +1,6 @@
 konlpy==0.6.0
 tensorflow==2.4.0
 bs4==0.0.1
-streamlit==1.15.1
+streamlit==1.23.1
 jpype1==1.2.0
 tweepy==3.7.0
