@@ -36,10 +36,8 @@ with open('wordIndex.json') as json_file:
   word_index = json.load(json_file)
   tokenizer.word_index = word_index
 
-@st.cache
-def load_model():
-	  return load_model('best_model.h5')
-loaded_model = load_model()
+
+loaded_model = load_model('best_model.h5')
 
 # 감성 분류 함수
 def sentiment_predict(new_sentence):
